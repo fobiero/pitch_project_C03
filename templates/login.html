@@ -1,5 +1,32 @@
-<h1 style="text-align: center; font-size: 3rem;">LoginPage</h1>
+{% extends "default.html" %} {% block content %}
 
-<a href="/">Home</a> <br>
-<a href="/register">Register</a> <br>
-<a href="/dashboard">Dashboard</a>
+<form action="" method="POST">
+    {{form.hidden_tag()}}
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Login</legend>
+        <div class="form-group">
+            {{form.email.label(class='form-control-label')}}
+            <!-- input  -->
+            {{form.email(class='form-control form-control-lg')}}
+        </div>
+        <div class="form-group">
+            {{form.password.label(class='form-control-label')}}
+            <!-- input  -->
+            {{form.password(class='form-control form-control-lg')}}
+        </div>
+        <div class="form-check">
+            {{ form.remember(class='form-checked-input')}}
+            <!-- label  -->
+            {{ form.remember.label(class='form-checked-label')}}
+
+        </div>
+    </fieldset>
+    <div class="form-group">
+        {{form.submit(class='btn btn-outline-info')}}
+    </div>
+    <small class="text-muted ml-2"><a href="#">Forgot password ?</a></small>
+</form>
+<div class="border-top pt-3">
+    <small class="text-muted">Already a Member? <a href="{{url_for('register')}}" class="ml-2">Register Now!</a></small>
+</div>
+{% endblock content %}
