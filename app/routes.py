@@ -20,6 +20,11 @@ posts = [
 
 
 @app.route('/')
+def index():
+    title = 'PitHes'
+    return render_template('index.html', title = title, posts=posts)
+
+@app.route('/home')
 def home():
     title = 'HomePage'
     return render_template('home.html', title = title, posts=posts)
