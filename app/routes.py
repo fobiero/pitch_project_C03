@@ -23,7 +23,7 @@ posts = [
 @app.route('/')
 def home():
     title = 'HomePage'
-    return render_template('home.html', title = title, posts=posts)
+    return render_template('home.html', title = title, posts = posts)
 
 
 
@@ -73,3 +73,8 @@ def profile():
 
     title = 'User Account'
     return render_template('profile.html', title = title)
+
+
+@app.route('/post')
+def post():
+    pass
