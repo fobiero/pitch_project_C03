@@ -1,3 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --pri_color: #428bca;
+}
+
 body {
     background: #fafafa;
     color: #333333;
@@ -14,7 +23,7 @@ h6 {
 }
 
 .nav_tag {
-    background-color: #428bca;
+    background-color: var(--pri_color);
 }
 
 .navbar-expand-md .navbar-collapse {
@@ -48,18 +57,12 @@ h6 {
 }
 
 a.article-title:hover {
-    color: #428bca;
+    color: var(--pri_color);
     text-decoration: none;
 }
 
 .article-content {
     white-space: pre-line;
-}
-
-.article-img {
-    height: 65px;
-    width: 65px;
-    margin-right: 16px;
 }
 
 .art_cont {
@@ -91,7 +94,7 @@ a.article-title:hover {
 }
 
 #pop_pi {
-    color: #428bca;
+    color: var(--pri_color);
     padding: 1rem 0;
 }
 
@@ -116,7 +119,7 @@ a.article-title:hover {
 }
 
 .art-mr .comment a {
-    background-color: #428bca;
+    background-color: var(--pri_color);
     padding: .5rem 2.2rem;
     text-align: center;
     color: #fff;

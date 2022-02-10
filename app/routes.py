@@ -1,5 +1,4 @@
 
-from distutils.errors import CompileError
 from flask import render_template, url_for, redirect, request
 from app.forms import RegForm, LogForm, Comment
 from app import app, db, bcrypt
@@ -83,3 +82,10 @@ def post_new():
         return redirect(url_for('home'))
 
     return render_template('post.html', form = form)
+
+
+@app.route('/post/<int:id>')
+def post(id):
+    title = 'Post'
+    post = Post.query.get_or_404(id)
+    return render_template('single_post.html', title = title, post = post)
