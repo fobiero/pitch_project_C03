@@ -1,6 +1,7 @@
 
+from distutils.errors import CompileError
 from flask import render_template, url_for, redirect, request
-from app.forms import RegForm, LogForm
+from app.forms import RegForm, LogForm, Comment
 from app import app, db, bcrypt
 from app.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
@@ -23,9 +24,8 @@ posts = [
 @app.route('/')
 def home():
     title = 'HomePage'
+    posts = Post.query.all()
     return render_template('home.html', title = title, posts = posts)
-
-
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -41,7 +41,6 @@ def register():
 
         return redirect(url_for('login'))
     return render_template('register.html', title ='Register', form = form)
-
 
 @app.route('/login' , methods=['GET', 'POST'])
 def login():
@@ -66,7 +65,6 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
-
 @app.route('/profile')
 @login_required
 def profile():
@@ -74,7 +72,14 @@ def profile():
     title = 'User Account'
     return render_template('profile.html', title = title)
 
+@app.route('/post/new', methods=['GET', 'POST'])
+def post_new():
+    form = Comment()
+    if form.validate_on_submit():
+        post = Post(title = form.post_title.data, content = form.post_content.data, author = current_user)
+        db.session.add(post)
+        db.session.commit()
 
-@app.route('/post')
-def post():
-    pass
+        return redirect(url_for('home'))
+
+    return render_template('post.html', form = form)

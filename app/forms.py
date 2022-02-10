@@ -1,7 +1,8 @@
+
 from xml.dom import ValidationErr
 from flask import render_template
 from  flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from app.models import User
 
@@ -33,3 +34,9 @@ class LogForm (FlaskForm):
     remember = BooleanField('Remember Me')
 
     submit = SubmitField('Login')
+
+
+class Comment(FlaskForm):
+    post_title = StringField('Title', validators=[DataRequired()])
+    post_content = TextAreaField('Comment', validators=[DataRequired()])
+    submit_post = SubmitField('Post')
