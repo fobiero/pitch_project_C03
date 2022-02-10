@@ -1,9 +1,9 @@
-import email
-from flask import render_template, url_for, flash, redirect
+
+from flask import render_template, url_for, redirect, request
 from app.forms import RegForm, LogForm
 from app import app, db, bcrypt
 from app.models import User, Post
-from flask_login import login_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 posts = [
     {
@@ -17,12 +17,6 @@ posts = [
         'title': 'Politics', 
         'content': 'Content for post Two',
         'date_posted': 'March 20 , 2020'
-    },
-    {
-        'author': 'Paul Sign', 
-        'title': 'LifeStyle', 
-        'content': 'Content for post Three',
-        'date_posted': 'July 20 , 2001'
     }
 ]
 
@@ -31,8 +25,12 @@ def home():
     title = 'HomePage'
     return render_template('home.html', title = title, posts=posts)
 
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
 
     form = RegForm()
     if form.validate_on_submit():
@@ -44,16 +42,34 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title ='Register', form = form)
 
+
 @app.route('/login' , methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
 
     form = LogForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-            return redirect(url_for('home'))
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
             return redirect(url_for('login'))
     
     return render_template('login.html', title ='Login', form = form)
+
+@app.route('/logout')
+def logout():
+
+    logout_user()
+    return redirect(url_for('home'))
+
+
+@app.route('/profile')
+@login_required
+def profile():
+
+    title = 'User Account'
+    return render_template('profile.html', title = title)

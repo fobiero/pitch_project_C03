@@ -13,8 +13,14 @@ h6 {
     color: #444444;
 }
 
-.bg-steel {
+.nav_tag {
     background-color: #428bca;
+}
+
+.navbar-expand-md .navbar-collapse {
+    display: flex!important;
+    flex-basis: auto;
+    justify-content: space-between !important;
 }
 
 .site-header .navbar-nav .nav-link {
