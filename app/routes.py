@@ -6,33 +6,28 @@ from app.models import User, Post
 posts = [
     {
         'author': 'king fela', 
-        'title': 'Post One', 
+        'title': 'Business', 
         'content': 'Content for post One',
         'date_posted': 'April 20 , 2018'
     },
     {
         'author': 'Oject Object', 
-        'title': 'Post Two', 
+        'title': 'Politics', 
         'content': 'Content for post Two',
         'date_posted': 'March 20 , 2020'
+    },
+    {
+        'author': 'Paul Sign', 
+        'title': 'LifeStyle', 
+        'content': 'Content for post Three',
+        'date_posted': 'July 20 , 2001'
     }
 ]
 
-
 @app.route('/')
-def index():
-    title = 'PitHes'
-    return render_template('index.html', title = title, posts=posts)
-
-@app.route('/home')
 def home():
     title = 'HomePage'
     return render_template('home.html', title = title, posts=posts)
-
-@app.route('/about')
-def about():
-    title = 'AboutPage'
-    return render_template('about.html', title = title)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
