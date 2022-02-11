@@ -6,7 +6,10 @@ Pitches Project is a flask Project that allows users to comment on already exist
 ## User Stories
 * A user should be able to see, like & comment on the pitches posted.
 * A user should view the pitches created on the profile page.
-* A user should submit & view a pitch in any category.
+* A user should submit & view a pitch in any category. <br>
+<br>
+![Landing Page Overview](crop.png)
+<!-- <img src="./static/crop.png" alt="Project Image Landing page"> -->
 
 #### Projects features of the App:
 

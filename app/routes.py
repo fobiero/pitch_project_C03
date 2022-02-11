@@ -84,7 +84,6 @@ def post_new():
 
     return render_template('post.html',legend='Create Pitch', form = form)
 
-
 @app.route('/single-post/<int:post_id>')
 @login_required
 def single_post(post_id):
