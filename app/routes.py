@@ -1,4 +1,5 @@
 
+from crypt import methods
 from flask import render_template, url_for, redirect, request
 from app.forms import RegForm, LogForm, Comment
 from app import app, db, bcrypt
@@ -81,11 +82,29 @@ def post_new():
 
         return redirect(url_for('home'))
 
-    return render_template('post.html', form = form)
+    return render_template('post.html',legend='Create Pitch', form = form)
 
 
-@app.route('/post/<int:id>')
-def post(id):
+@app.route('/single-post/<int:post_id>')
+@login_required
+def single_post(post_id):
     title = 'Post'
-    post = Post.query.get_or_404(id)
+    post = Post.query.get_or_404(post_id)
     return render_template('single_post.html', title = title, post = post)
+
+
+@app.route('/single-post/<int:post_id>/comment', methods=['GET', 'POST'])
+# @login_required
+def comment(post_id):
+    post = Post.query.get_or_404(post_id)
+    title = 'Comment'
+    form = Comment()
+    if form.validate_on_submit():
+        post.post_content = form.post_content.data
+        db.session.commit()
+        return redirect(url_for('new_post', post_id = post.id))
+    elif request.method == 'GET':
+        form.post_content.data = post.content
+
+    return render_template('post.html', title=title,legend='Comment', form = form)
+

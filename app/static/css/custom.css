@@ -128,3 +128,13 @@ a.article-title:hover {
     font-weight: 300;
     letter-spacing: .2rem;
 }
+
+textarea {
+    border: ipx solid #cbd5db;
+    outline: none;
+    padding: 2rem;
+    width: 100%;
+    opacity: .5;
+    font-weight: 300;
+    letter-spacing: .2rem;
+}
