@@ -1,32 +1,19 @@
 
-from crypt import methods
 from flask import render_template, url_for, redirect, request
 from app.forms import RegForm, LogForm, Comment
 from app import app, db, bcrypt
 from app.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
-posts = [
-    {
-        'author': 'king fela', 
-        'title': 'Business', 
-        'content': 'Content for post One',
-        'date_posted': 'April 20 , 2018'
-    },
-    {
-        'author': 'Oject Object', 
-        'title': 'Politics', 
-        'content': 'Content for post Two',
-        'date_posted': 'March 20 , 2020'
-    }
-]
-
+# @TODO: Basic homePage route 
 @app.route('/')
 def home():
     title = 'HomePage'
     posts = Post.query.all()
     return render_template('home.html', title = title, posts = posts)
 
+
+# @TODO: Register route 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -42,6 +29,7 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title ='Register', form = form)
 
+# @TODO: Login route 
 @app.route('/login' , methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -59,12 +47,14 @@ def login():
     
     return render_template('login.html', title ='Login', form = form)
 
+# @TODO: Logout route 
 @app.route('/logout')
 def logout():
 
     logout_user()
     return redirect(url_for('home'))
 
+# @TODO: Profile route 
 @app.route('/profile')
 @login_required
 def profile():
@@ -72,6 +62,7 @@ def profile():
     title = 'User Account'
     return render_template('profile.html', title = title)
 
+# @TODO: Create newPitch route 
 @app.route('/post/new', methods=['GET', 'POST'])
 def post_new():
     form = Comment()
@@ -84,6 +75,7 @@ def post_new():
 
     return render_template('post.html',legend='Create Pitch', form = form)
 
+# @TODO: Get singlePitch
 @app.route('/single-post/<int:post_id>')
 @login_required
 def single_post(post_id):
@@ -92,6 +84,7 @@ def single_post(post_id):
     return render_template('single_post.html', title = title, post = post)
 
 
+# @TODO: Comment on a SinglePitch
 @app.route('/single-post/<int:post_id>/comment', methods=['GET', 'POST'])
 # @login_required
 def comment(post_id):

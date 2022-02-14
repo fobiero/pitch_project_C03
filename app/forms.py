@@ -1,5 +1,4 @@
 
-from xml.dom import ValidationErr
 from flask import render_template
 from  flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
@@ -19,14 +18,10 @@ class RegForm (FlaskForm):
         if user :
             return render_template('404')
 
-# raise  ValidationError('User already Exist!')
-
     def if_email_exists(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user :
             return render_template('404')
-
-# raise  ValidationError('Email is taken!')
 
 class LogForm (FlaskForm):
     email = StringField('Email', validators=[DataRequired(),Email()])
@@ -35,8 +30,8 @@ class LogForm (FlaskForm):
 
     submit = SubmitField('Login')
 
-
 class Comment(FlaskForm):
     post_title = StringField('Title', validators=[DataRequired()])
     post_content = TextAreaField('Comment', validators=[DataRequired()])
+    
     submit_post = SubmitField('Post')
