@@ -7,7 +7,9 @@ from flask_login import LoginManager
 
 app = Flask(__name__)
 
-ENV = 'dev'
+# ENV = 'dev'
+ENV = 'prod'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 if ENV == 'dev':
